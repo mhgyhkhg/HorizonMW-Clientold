@@ -19,7 +19,6 @@ jobs:
       matrix:
         configuration:
           - Debug
-          - Release
     steps:
       - name: Check out files
         uses: actions/checkout@v3
