@@ -46,8 +46,8 @@ jobs:
         with:
           name: ${{matrix.configuration}} binaries
           path: |
-            build/bin/x64/${{matrix.configuration}}/h1-mod.exe
-            build/bin/x64/${{matrix.configuration}}/h1-mod.pdb
+            build/bin/x64/${{matrix.configuration}}/h2m-mod.exe
+            build/bin/x64/${{matrix.configuration}}/h2m-mod.pdb
             
       - name: Upload ${{matrix.configuration}} data artifacts
         uses: actions/upload-artifact@v3.1.0
@@ -90,13 +90,13 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }} >> ~/.ssh/known_hosts
 
       - name: Remove old data files
-        run: ssh ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }} rm -rf ${{ env.H1_MOD_MASTER_PATH }}/h1-mod/*
+        run: ssh ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }} rm -rf ${{ env.H1_MOD_MASTER_PATH }}/h2m-mod/*
 
-      - name: Upload h1-mod binary
-        run: rsync -avz h1-mod.exe ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }}:${{ env.H1_MOD_MASTER_PATH }}/h1-mod/
+      - name: Upload h2m-mod binary
+        run: rsync -avz h2m-mod.exe ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }}:${{ env.H1_MOD_MASTER_PATH }}/h2m-mod/
 
       - name: Upload data files
-        run: rsync -avz ./data/ ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }}:${{ env.H1_MOD_MASTER_PATH }}/h1-mod/
+        run: rsync -avz ./data/ ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }}:${{ env.H1_MOD_MASTER_PATH }}/h2m-mod/
 
       - name: Publish changes
         run: ssh ${{ secrets.H1_MOD_MASTER_SSH_USER }}@${{ secrets.H1_MOD_MASTER_SSH_ADDRESS }} ${{ secrets.H1_MOD_MASTER_SSH_CHANGE_PUBLISH_COMMAND }}
